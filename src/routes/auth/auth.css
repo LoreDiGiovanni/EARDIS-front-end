@@ -1,0 +1,32 @@
+.login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center;
+} 
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.input-container{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.input{
+  outline: none; /* Rimuove il bordo di selezione */
+  border: none;
+  box-shadow: none; /* Remove shadow */
+  width: 100%;
+  overflow: hidden;
+}
+
+.inoute-text{
+    font-size: 5px;
+}
+

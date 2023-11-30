@@ -1,40 +1,62 @@
 <script>
   import { goto } from '$app/navigation';
-  let succes = false;
+  import {jwt} from '@/auth.ts'
+
   let error = null;
+  let email= '';
+  let pwd= '';
 
-  const login= async () => {
+  async function login(){
     try {
-      const url = 'http://127.0.0.1:3000/check';
+        let body = {
+             email: email,
+             pwd: pwd,
+        };
 
-      const customHeaders = {
-        'Content-Type': 'application/json',
-      };
-      const response = await fetch(url, {
-        method: 'GET',
-        body: JSON.stringify({ a, b }),
-        headers: {
-          ...customHeaders,
-        },
-      });
-        if (response.ok) {
-            succes= true 
-        } 
+        const url = 'http://127.0.0.1:3000/login';
+        const response = await fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+             throw new Error('Invalid Input');
+         }else{
+             const jresponse = await response.json()
+             jwt.set(jresponse.token)
+             goto("/home")
+         }
     } catch (err) {
       error = err.message;
     }
   };
+
 </script>
 
 
-<h1>Login</h1>
-{#if succes}
-  <p> YaY</p>
-{/if}
+<div class="login-container">
+    <form on:submit|preventDefault={login}>
 
-{#if error}
-  <p style="color: red;">Errore: {error}</p>
-{/if}
+      <div class="input-container">
+        <p class="input-text">email:<p>
+        <input class="input" type="text" bind:value={email} />
+      </div>
+    
+      <div class="input-container">
+        <p class="input-text">Password:</p>
+        <input class="input" type="password" bind:value={pwd} />
+      </div>
 
-<button on:click={login}>Login</button>
+      <button type="submit">Login</button>
+    </form>
 
+    <label> Don’t have an account?
+        <a href="/auth/signup">Signup</a>
+    </label>
+</div>
+
+<style>
+    @import "../auth.css";
+</style>

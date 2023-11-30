@@ -36,22 +36,30 @@
   };
 </script>
 
-<form on:submit|preventDefault={signup}>
-  <label>
-    Username:
-    <input type="text" bind:value={username} />
-  </label>
+<div class="login-display">
+    <form on:submit|preventDefault={signup}>
+      <label>
+        Username:
+        <input type="text" bind:value={username} />
+      </label>
+    
+      <label>
+        Email:
+        <input type="text" bind:value={email} />
+      </label>
+    
+      <label>
+        Password:
+        <input type="password" bind:value={pwd} />
+      </label>
+    
+      <button type="submit">Signup</button>
+    </form>
+    <label> Already signed up? 
+        <a href="/auth/login">Login</a>
+    </label>
+</div>
 
-  <label>
-    email:
-    <input type="text" bind:value={email} />
-  </label>
-
-  <label>
-    Password:
-    <input type="password" bind:value={pwd} />
-  </label>
-
-  <button type="submit">signup</button>
-</form>
-
+<style>
+    @import "../auth.css";
+</style>
