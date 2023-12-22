@@ -1,6 +1,5 @@
 <script>
   import { goto } from '$app/navigation';
-  import {jwt} from '@/auth.ts'
 
   let error = null;
   let email= '';
@@ -9,23 +8,19 @@
   async function login(){
     try {
         let body = {
-             email: email,
              pwd: pwd,
+             email: email,
         };
-
-        const url = 'http://127.0.0.1:3000/login';
+        const url = 'http://localhost:3000/login';
         const response = await fetch(url, {
           method: 'POST',
           body: JSON.stringify(body),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: {'Content-Type': 'application/json',},
+          credentials: 'include',
         });
         if (!response.ok) {
-             throw new Error('Invalid Input');
+             throw new Error('the user does not exist');
          }else{
-             const jresponse = await response.json()
-             jwt.set(jresponse.token)
              goto("/home")
          }
     } catch (err) {

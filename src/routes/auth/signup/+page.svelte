@@ -1,6 +1,5 @@
 <script>
   import { goto } from '$app/navigation';
-  import {jwt} from '@/auth.ts'
 
   let error = null;
   let username = '';
@@ -27,7 +26,7 @@
              throw new Error('Invalid Input');
          }else{
              const jresponse = await response.json()
-             jwt.set(jresponse.token)
+             document.cookie = jresponse.cookie
              goto("/home")
          }
     } catch (err) {
